@@ -1,0 +1,57 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      const root = {
+        // template: `
+        //   <h1 v-for="item of array" v-bind:class="String(item)"> {{ item }} </h1>
+        // `,
+
+        template: `
+          <h1 v-for="(value,index) of array" :key="index">
+            value: {{value}},
+            index: {{index}},  
+          </h1>
+        `,
+
+        setup() {
+          const array = [1, 2, 3, 4, 5];
+          return {
+            array,
+          };
+        },
+
+        // template: `
+        //   <h1 v-for="item of obj" v-bind:class="String(item)"> {{ item }} </h1>
+        // `,
+
+        // template: `
+        //   <h1 v-for="(value, prop, index) of obj">
+        //     value: {{value}},
+        //     prop: {{prop}},
+        //     index: {{index}},
+        //   </h1>
+        // `,
+
+        //   setup() {
+        //     const obj = {
+        //       a: 1,
+        //       b: 2,
+        //       c: 3,
+        //     };
+
+        //     return {
+        //       obj,
+        //     };
+        //   },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

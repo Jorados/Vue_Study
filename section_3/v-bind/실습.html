@@ -1,0 +1,30 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      const root = {
+        template: `
+          <nav>
+            <a v-bind:href="menu[0].toLowerCase()">{{ menu[0] }}</a>
+            <a v-bind:href="menu[1].toLowerCase()">{{ menu[1] }}</a>  
+            <a v-bind:href="menu[2].toLowerCase()">{{ menu[2] }}</a>    
+          </nav>
+        `,
+
+        setup() {
+          const menu = ["HTML", "CSS", "Javascript"];
+          return {
+            menu,
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
