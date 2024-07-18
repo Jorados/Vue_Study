@@ -1,0 +1,40 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      const root = {
+        template: `
+          <nav>
+            <a
+              v-for="item of menu"
+              :key = "item"
+              :href="item.toLowerCase()"
+              @click.prevent="selectedMenu.value = item"
+            >
+            {{item}}
+            </a>
+          </nav>
+          <h2 > {{ selectedMenu.value }} </h2>
+        `,
+
+        setup() {
+          const menu = ["HTML", "CSS", "Javascript"];
+          return {
+            menu,
+            selectedMenu: reactive({ value: "HTML" }),
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      // 둘다 boolean 이고, false인 경우에
+      // v-show 는 style="none;" 을 해서 숨기고
+      // v-if 는 그냥 태그 자체를 띄우지 않는다
+
+      // 자주 보여주거나 사라져야할때는 v-show가 더 좋다.
+      // 하지만 v-if를 쓰면 로딩시간이 조금 더 줄어든다.
+
+      const root = {
+        template: `
+            <h1 v-show="condition"> v-show </h1>
+            <h1 v-if="condition"> v-if </h1>
+          `,
+
+        setup() {
+          return {
+            condition: false,
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

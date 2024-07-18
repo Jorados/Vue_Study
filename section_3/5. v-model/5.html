@@ -1,0 +1,47 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      // v-model 수식어
+      // lazy / number / trim
+
+      // lazy
+      // 입력창에서 입력할떄는 값을 업데이트하지않다가 change이벤트가 발생하면 값이 업데이트됨
+
+      // number
+      // 값을 업데이트할때 마다 값을 숫자로 바꿔줌.
+
+      // trim
+      // 문자열 양쪽에 있는 공백을 제거해 준다.
+
+      const root = {
+        template: `
+            <input v-model.lazy="text.value"/>
+
+            asdasd
+
+            <input v-model.number="text.value"/>
+            <h2>{{typeof text.value}}</h2>
+
+            <input v-mode.trim="text.value"/>
+          `,
+
+        setup() {
+          return {
+            text: reactive({ value: "" }),
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

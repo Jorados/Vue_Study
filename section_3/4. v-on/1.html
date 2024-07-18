@@ -6,17 +6,23 @@
     <script type="module">
       import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 
+      // v-on
+
       const root = {
         template: `
-          <nav>
-            <a v-for="(value,index) of menu" :href="menu[index].toLowerCase()">{{value}}</a>
-          </nav>
-        `,
+            <button
+            @click="onClick($event)"
+            @mouseover="console.log('환영합니다.')"
+            >
+              버튼
+            </button>
+          `,
 
         setup() {
-          const menu = ["HTML", "CSS", "Javascript"];
           return {
-            menu,
+            onClick(event) {
+              console.log(event);
+            },
           };
         },
       };

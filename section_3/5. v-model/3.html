@@ -1,0 +1,43 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      // v-model
+      // v-bind 와 v-on 의 기능을 합친 것
+
+      const root = {
+        template: `
+            <label>
+              <input type="radio" value="아이네"
+                v-model="selected.value"
+              />
+              아이네
+            </label>
+
+            <label>
+              <input type="radio" value="릴파"
+                v-model="selected.value"
+              />
+              릴파
+            </label>
+          `,
+
+        setup() {
+          return {
+            selected: reactive({ value: "" }),
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

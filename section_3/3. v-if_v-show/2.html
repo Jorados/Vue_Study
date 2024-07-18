@@ -1,0 +1,30 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      // if-else 디렉티브 사용 시
+      // 중간에 다른 태그가 들어가면 안됨 ~
+      const root = {
+        template: `
+            <h1 v-if="number == 100"> A </h1>
+            <h1 v-else-if="number > 90"> B </h1>
+            <h1 v-else-if="number > 80"> C </h1>
+            <h1 v-else> F </h1>
+          `,
+
+        setup() {
+          return {
+            number: 100,
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

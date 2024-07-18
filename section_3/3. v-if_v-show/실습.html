@@ -1,0 +1,57 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      // 디렉티브 실행 순서
+      // 1. v-if
+      // 2. v-for
+      // 3. v-show
+      const root = {
+        // template: `
+        //   <nav>
+        //     <a
+        //     v-show="item.length > 3"
+        //     v-for="item of menu"
+        //     :key="item"
+        //     :href="item.toLowerCase()"
+        //     >
+        //     {{item}}
+        //     </a>
+        //   </nav>
+        // `,
+
+        // template 태그를 이용한 v-if 이용방법
+        // 해당 태그 안에서 item 사용 가능
+        template: `
+          <nav>
+            <template
+              v-for="item of menu"
+              :key = "item"
+            >
+              <a
+                v-if="item.length>3"
+                :href="item.toLowerCase()"
+              >
+              {{item}}
+              </a>
+            </template>
+          </nav>
+        `,
+
+        setup() {
+          const menu = ["HTML", "CSS", "Javascript"];
+          return {
+            menu,
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
