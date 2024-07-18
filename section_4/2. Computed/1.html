@@ -1,0 +1,62 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+        ref,
+        computed,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+      const root = {
+        // computed
+        // 해당 computed 함수의 로직을 바로 처리해서 뱉어내는 것이라고 생각하자
+
+        template: `
+          <h2 v-for="p of people" :key="p.name">
+            {{ p.name }} {{ p.height }}
+          </h2>
+          <h2>{{ numTallPeople }}</h2>
+          <h2>{{ numTallPeople }}</h2>
+          <h2>{{ numTallPeople }}</h2>
+          <h2>{{ numTallPeople }}</h2>
+          <h2>{{ numTallPeople }}</h2>
+
+          <input v-model="name" />
+          <input v-model.number="height" />
+          <button @click="addPerson">Add</button>
+        `,
+        setup() {
+          const people = reactive([
+            { name: "Ine", height: 158 },
+            { name: "Jing Burger", height: 161 },
+            { name: "Lilpha", height: 164 },
+          ]);
+
+          const numTallPeople = computed(function () {
+            console.log("함수호출");
+            return people.filter((p) => p.height >= 160).length;
+          });
+
+          const name = ref("");
+          const height = ref(null);
+          return {
+            people,
+            name,
+            height,
+            addPerson() {
+              people.push({
+                name: name.value,
+                height: height.value,
+              });
+            },
+            numTallPeople,
+          };
+        },
+      };
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -7,6 +7,7 @@
       import {
         createApp,
         reactive,
+        ref,
       } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 
       const root = {
@@ -16,22 +17,22 @@
               v-for="item of menu"
               :key = "item"
               :href="item.toLowerCase()"
-              @click.prevent="selectedMenu.value = item"
+              @click.prevent="selectedMenu = item"
             >
             {{item}}
             </a>
           </nav>
-          <input v-model.lazy="search.value"/>
-          <h2> {{ selectedMenu.value }} </h2>
-          <h2 v-if="search.value"> 검색결과 :{{search.value}} </h2>
+          <input v-model.lazy="search"/>
+          <h2> {{ selectedMenu }} </h2>
+          <h2 v-if="search"> 검색결과 :{{search}} </h2>
         `,
 
         setup() {
           const menu = ["HTML", "CSS", "Javascript"];
           return {
             menu,
-            search: reactive({ value: "" }),
-            selectedMenu: reactive({ value: "HTML" }),
+            search: ref(""),
+            selectedMenu: ref("HTML"),
           };
         },
       };

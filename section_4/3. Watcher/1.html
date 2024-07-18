@@ -1,0 +1,73 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+        ref,
+        watch,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+      const root = {
+        // watch
+        // 해당 반응성 객체를 감시하는 역할
+
+        // 파라미터는 2개를 받을 수 있음
+        // 첫번째는 변한 후의 값
+        // 두번째는 변하기 전의 값
+
+        // 감시대상 여러개 가능 --> 첫번째 인자에 [] 배열 넣으면 됨
+
+        // 결과값을 감시하려면 --> 첫번째 인자에 getter 함수를 넣으면 됨
+        // () => x.value * y.value,
+
+        // 상황에 따라 넣을 수 있는 옵션
+        // deep / immediate / flush
+
+        // deep
+        // 보통 복잡한 반응형 객체가 있을때 안속에 있는 값까지 확인할때
+        // deep:true 와 getter 함수를 같이 사용
+
+        // immediate
+        // watcher는 값이 변경될때까지 수정되지않는다.
+        // immediate는 처음에 값을 한번 실행되게함. immediate:true
+
+        // flush ( pre , post , sync )
+        // watch가 실행될 타이밍을 조절할수있다.
+
+        // const ~~ = watch()
+        // 이렇게 선언해서 원하는 곳에 ~~() 해주면 watch() 멈출수있음!
+
+        // watchEffect
+        // 처음 부터 실행되게 함.
+        // 감시하는 값(인자) 필요없음
+
+        // watch --> 지정한 값을 감시함
+        // watchEffect --> 알아서 찾아서 감시함.
+
+        template: `
+          <input v-model.number="x"/>
+          <input v-model.number="y"/>
+        `,
+
+        setup() {
+          const x = ref(0);
+          const y = ref(0);
+          watch(
+            () => x.value * y.value,
+            () => {
+              console.log("두 값의 합은", x.value * y.value);
+            }
+          );
+          return {
+            x,
+            y,
+          };
+        },
+      };
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+        ref,
+        computed,
+        watchEffect,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+      const root = {
+        template: `
+          <nav>
+            <a
+              v-for="item of menu"
+              :key='item'
+              :href="item.toLowerCase()"
+              @click.prevent="selectedMenu = item"
+            >
+              {{ item }}
+            </a>
+          </nav>
+          <input v-model.lazy="search" />
+          <h2>{{ selectedMenu }}</h2>
+          <h2 v-if="search"> {{ searchResult }} </h2>
+          <p v-for="d of data" :key="d.id">{{ d }}</p>
+          `,
+        setup() {
+          const menu = ["todos", "posts", "users"];
+          const search = ref("");
+          const selectedMenu = ref("todos");
+          const data = ref(null);
+
+          watchEffect(() => {
+            fetch("https://jsonplaceholder.typicode.com/" + selectedMenu.value)
+              .then((response) => response.json())
+              .then((json) => (data.value = json));
+          });
+
+          return {
+            menu,
+            search,
+            searchResult: computed(() => "검색결과 : " + search.value),
+            selectedMenu,
+            data,
+          };
+        },
+      };
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

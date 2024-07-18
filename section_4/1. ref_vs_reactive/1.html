@@ -1,0 +1,47 @@
+<html>
+  <head></head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+        ref,
+      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      // ref
+      // reactive와는 다르게 객체값을 이용하지 않아도된다.
+      // 모든 타입의 변수 사용이 가능하다.
+
+      // 문자열 , 숫자 사용 -> ref가 편함
+      // 객체 , 배열 사용 -> reactive가 편함
+
+      const root = {
+        template: `
+            <h2 @click="refVal1='xx'">{{refVal1}}</h2>
+            <h2>{{refVal2}}</h2>
+            <h2>{{refVal3}}</h2>
+            <h2>{{refVal4}}</h2>
+          `,
+
+        setup() {
+          const refVal1 = ref("방가방가");
+          const refVal2 = ref(6109);
+          const refVal3 = ref([1, 2, 3, 4, 5, 6]);
+          const refVal4 = ref({ 아이네: 158, 릴파: 700 });
+
+          return {
+            refVal1,
+            refVal2,
+            refVal3,
+            refVal4,
+          };
+        },
+      };
+
+      const app = createApp(root);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
