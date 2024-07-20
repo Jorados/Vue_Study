@@ -1,7 +1,7 @@
 <template>
-  <SiteHeader />
-  <SiteMain />
-  <SiteFooter test="hello" />
+  <SiteHeader v-model="keyword" />
+  <SiteMain :keyword="keyword" />
+  <SiteFooter />
   <div class="my-loader" v-show="loading">
     <Loading />
   </div>
@@ -13,9 +13,26 @@ import Loading from "@/components/Loading.vue";
 import SiteFooter from "./components/SiteFooter.vue";
 import SiteMain from "@/components/SiteMain.vue";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, provide } from "vue";
 
+const keyword = ref("");
 const loading = ref(true);
+const name = ref("List");
+const category = ref("");
+
+provide("name", {
+  name,
+  updateName(newName) {
+    name.value = newName;
+  },
+});
+
+provide("category", {
+  category,
+  updateCategory(newCategory) {
+    category.value = newCategory;
+  },
+});
 
 onMounted(() => {
   setTimeout(() => {

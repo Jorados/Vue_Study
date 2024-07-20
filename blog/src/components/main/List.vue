@@ -1,6 +1,13 @@
 <template>
   <ul class="list">
-    <li v-for="post of list" :key="post.id">
+    <li
+      v-for="post of filteredList"
+      :key="post.id"
+      @click="
+        $emit('change-id', post.id);
+        updateName('Post');
+      "
+    >
       <span>{{ post.title }}</span>
       <span class="category" v-bind:class="post.category.toLowerCase()">
         {{ post.category }}
@@ -11,9 +18,28 @@
 
 <script setup>
 import { getPageTable } from "vue-notion";
-import { ref } from "vue";
+import { ref, computed, inject } from "vue";
 
 const list = ref([]);
+
+const { updateName } = inject("name");
+const { category } = inject("category");
+
+const props = defineProps(["keyword"]);
+const filteredList = computed(() => {
+  return list.value.filter((item) => {
+    return (
+      (item.category == category.value || category.value == "") &&
+      item.title.includes(props.keyword)
+    );
+  });
+  // return list.value.filter((item) => {
+  //   return item.category == category.value || category.value == "";
+  // });
+  // return list.value.filter((item) => {
+  //   return item.title.includes(keyword.value);
+  // });
+});
 
 getPageTable("283692adcaff4a9ebc11cf34c38e38d7").then((value) => {
   list.value = value;

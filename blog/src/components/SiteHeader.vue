@@ -2,10 +2,21 @@
   <header>
     <img src="@/assets/logo.jpg" ref="logo" />
 
-    <Search />
+    <Search
+      :search="modelValue"
+      :searchModifiers="{ trim: true }"
+      @update:search="(newVal) => $emit('update:modelValue', newVal)"
+    />
 
     <nav>
-      <a v-for="item of menu" :key="item">
+      <a
+        v-for="item of menu"
+        :key="item"
+        @click="
+          updateName('List');
+          updateCategory(item);
+        "
+      >
         {{ item }}
       </a>
     </nav>
@@ -14,7 +25,13 @@
 
 <script setup>
 import Search from "@/components/header/Search.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject } from "vue";
+
+defineProps(["modelValue"]);
+defineEmits(["update:modelValue"]);
+
+const { updateName } = inject("name");
+const { updateCategory } = inject("category");
 
 const logo = ref(null);
 onMounted(() => {
